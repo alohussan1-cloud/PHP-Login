@@ -11,14 +11,28 @@ $title = $_POST['title']??'';
 $descrip = $_POST['descrip']??'';
 $error = [];
 
+if(isset($_POST['btn'])){
+    if(empty($title)){
+        $error['title'] = "Enter Title";
+    }
+
+    if(empty($title)){
+        $error['descrip'] = "Enter Description";
+    }
+}
+
 if(!empty($title) && !empty($descrip)){
 
     $insert = "INSERT INTO todoList(title, description) values('$title', '$descrip')";
     
     $run = mysqli_query($conn, $insert);
     
-}
+} 
 
+
+$select = "SELECT * FROM todoList";
+
+$data = mysqli_query($conn, $select);
 
 
 
@@ -41,9 +55,43 @@ if(!empty($title) && !empty($descrip)){
         <h1>My Todo List</h1>
         <label for="title">Add Title</label> <br>
         <input type="text" name="title" > <br>
+        <span> <?php echo $error['title']??'';?></span> <br>
         <label for="title">Add Description</label> <br>
         <input type="text" name="descrip"> <br>
+        <span> <?php echo $error['descrip']??'';?> </span> 
         <input type="submit"  name="btn" value="Add the Note">
     </form>
+
+
+ 
+    <table border= "1">
+  <tr>
+    <th>S NO. </th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+  <?php
+  $num = 0;
+if($data){
+    while($row = mysqli_fetch_assoc($data)){
+   $num++;
+
+?>
+  <tr>
+      <td><?php echo $num?></td>
+      <td><?php echo $row['Title']; ?></td>
+      <td><?php echo $row['Description']; ?></td>
+    
+    <td> <a href="#">Edit</a> <a href="#">Delete</a></td>
+  </tr>
+  <?php
+ }
+}
+
+?>
+</table>
+
 </body>
 </html>
+
