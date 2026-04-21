@@ -179,14 +179,3 @@ if($data){
 </body>
 </html>
 
-<?php
-
-if(isset($_GET['delete'])){
-    $id = $_GET['delete'];
-
-    $delete = "DELETE FROM todo WHERE USER_ID = '$id'";
-    mysqli_query($conn, $delete);
-
-}
-
-?>
