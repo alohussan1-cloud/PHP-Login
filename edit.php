@@ -21,22 +21,31 @@ if($select){
 ?>
 
 <?php
+$inputTitle = $_POST['title']??'';
+$inputDescrip = $_POST['descrip']??'';
 
-$inputTitle = $_POST['title'];
-$inputDescrip = $_POST['descrip'];
-
-$update = "UPDATE todo SET Title ='$inputTitle', Description = '$inputDescrip' where USER_ID = '$id'";
-
-$Query = mysqli_query($conn, $update);
-
-if(isset($_POST['btn']))
-if($Query){
-    echo "query ran";
-    header("location: index.php");
-} else{
-    echo "query failed";
+if(isset($_POST['btn'])){
+    $inputTitle = $_POST['title'];
+    $inputDescrip = $_POST['descrip'];
+    
+    $update = "UPDATE todo SET Title ='$inputTitle', Description = '$inputDescrip' where USER_ID = '$id'";
+    
+    $Query = mysqli_query($conn, $update);
+    
+    
+    
+    
+    if(!empty($inputTitle) && !empty($inputDescrip)){
+        
+        if($Query){
+            header("location: index.php");
+        } else{
+                echo "failed to edit";
+        }
+                
+                
+    }
 }
-
 
 ?>
 
@@ -47,8 +56,10 @@ if($Query){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+</style>
 <body>
     <form Method="POST" >
+        <h3>Edit Form</h3>
         <input type="text" name="title" value="<?php echo $title ?>"> <br> <br>
         <input type="text" name="descrip" value="<?php echo $descrip ?>" > <br> <br>
         <input type="submit" name="btn" value="Edit">
