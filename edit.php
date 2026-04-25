@@ -2,31 +2,57 @@
 
 $conn = mysqli_connect("localhost", "root", "", "practice");
 
-// if(!$conn){
-//     die("connection failed");
-// } else{
-//     echo "connection successful";
-// }
 
+$id = $_GET['id'];
 
-   if(isset($_GET['edit'])){
-    $id = $_GET['edit'];
+$sql = "SELECT * FROM todo where USER_ID = '$id'";
 
-    $select = "SELECT * FROM todo WHERE USER_ID = '$id'";
-    $query = mysqli_query($conn, $select);
-
-    if($query){
-        echo "query ran";
-    } else {
-        echo "query failed";
+$select = mysqli_query($conn, $sql);
+ 
+if($select){
+    while($row = mysqli_fetch_assoc($select)){
+        $title = $row['Title'];
+        $descrip = $row['Description'];
     }
-} else {
-    echo "No ID received";
 }
 
 
 
+?>
 
+<?php
+
+$inputTitle = $_POST['title'];
+$inputDescrip = $_POST['descrip'];
+
+$update = "UPDATE todo SET Title ='$inputTitle', Description = '$inputDescrip' where USER_ID = '$id'";
+
+$Query = mysqli_query($conn, $update);
+
+if(isset($_POST['btn']))
+if($Query){
+    echo "query ran";
+    header("location: index.php");
+} else{
+    echo "query failed";
+}
 
 
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form Method="POST" >
+        <input type="text" name="title" value="<?php echo $title ?>"> <br> <br>
+        <input type="text" name="descrip" value="<?php echo $descrip ?>" > <br> <br>
+        <input type="submit" name="btn" value="Edit">
+    </form>
+</body>
+</html>
+

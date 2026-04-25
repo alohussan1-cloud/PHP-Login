@@ -35,11 +35,11 @@ $select = "SELECT * FROM todo";
 
 $data = mysqli_query($conn, $select);
 
-if(isset($_GET['edit'])){
-    $id = $_GET['edit'];
-    header("Location: edit.php?edit=$id");
-    exit();
-}
+// if(isset($_GET['edit'])){
+//     $id = $_GET['edit'];
+//     header("Location: edit.php?edit=$id");
+//     exit();
+// }
 
 ?>
 
@@ -172,7 +172,7 @@ if($data){
       <td><?php echo $row['Title']; ?></td>
       <td><?php echo $row['Description']; ?></td>
     
-    <td> <a href="?edit=<?php echo $row['USER_ID']?>">Edit</a> <a href="?delete=<?php echo  $row['USER_ID'] ?>">Delete</a></td>
+    <td> <a href="edit.php?id=<?php echo $row['USER_ID']?>">Edit</a> <a href="delete.php?id=<?php echo $row['USER_ID']?>">Delete</a></td>
   </tr>
   <?php
  }
