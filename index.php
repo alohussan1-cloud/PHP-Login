@@ -63,7 +63,7 @@ $data = mysqli_query($conn, $select);
         <span> <?php echo $error['title']??'';?></span> <br>
         <label for="title">Add Description</label> <br>
         <input type="text" name="descrip"> <br>
-        <span> <?php echo $error['descrip']??'';?> </span> 
+        <span> <?php echo $error['descrip']??''; echo "<br>" ;?> </span> 
         <input type="submit"  name="btn" value="Add the Note">
     </form>
 
@@ -88,7 +88,8 @@ if($data){
       <td><?php echo $row['Title']; ?></td>
       <td><?php echo $row['Description']; ?></td>
     
-    <td> <a href="edit.php?id=<?php echo $row['USER_ID']?>">Edit</a> <a href="delete.php?id=<?php echo $row['USER_ID']?>">Delete</a></td>
+    <td> <a href="edit.php?id=<?php echo $row['USER_ID']?>" id="edit">Edit</a>
+     <a href="delete.php?id=<?php echo $row['USER_ID']?>" id="delete">Delete</a></td>
   </tr>
   <?php
  }
